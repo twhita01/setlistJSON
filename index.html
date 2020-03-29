@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Breakup Setlist</title>
+<style>
+	body{
+		font-family:avenir;
+	}
+	h1, h2{
+		margin:0px;
+		padding:0px;
+	}
+	table {border-spacing: 30px;
+	}
+	.title {
+		padding-left: 30px;
+		padding: 10px;
+		background-color: darkgray;
+		width: 100%;
+		margin-left:0;
+	}
+</style>
+<script language="javascript">
+	
+	songs = new Array(
+	{"name": "Since U Been Gone", "artist": "Kelly Clarkson", 
+ 			"year": "2012","genre": ["Pop"] },
+	{"name": "Forget You", "artist": "CeeLo Green", 
+ 			"year": "2010", "genre": ["Alternative"] },
+	{"name": "Irreplaceable", "artist": "Beyoncé",
+ 			"year": "2007", "genre": ["Pop", "R&B"] },
+	{"name": "Don't Speak", "artist": "No Doubt",
+ 			"year": "2003", "genre": ["Pop", "Alternative"] } ,
+	{"name": "Cry Me a River", "artist": "Justin Timberlake",
+ 			"year": "2002", "genre": ["Pop"] } ,
+	{"name": "Tainted Love", "artist": "Soft Cell",
+ 			"year": "2009", "genre": ["Rock", "Alternative"] } ,
+	{"name": "Mean", "artist": "Taylor Swift",
+ 			"year": "2010", "genre": ["Pop"] } ,
+	{"name": "Stronger", "artist": "Britney Spears",
+ 			"year": "2000", "genre": ["Pop"] } ,
+	{"name": "Someone Like You","artist": "Adele",
+ 			"year": "2011",	"genre": ["Pop"] } ,
+	{"name": "Tears Dry on Their Own", "artist": "Amy Winehouse",
+ 			"year": "2006", "genre": ["R&B", "Rock"] } ,
+	);
+	
+</script>	
+</head>
+
+<body>
+	<div class = "title">
+	<h1> Breakup Song Setlist</h1>
+	Sort By Genre: 
+	<select id="genreSelect"> 
+		<option> All </option>
+		<option> Pop </option>
+		<option> Alternative </option>
+		<option> Rock </option>
+		<option> R&B </option>
+	</select>
+	</div>
+	
+	<table id="table"> </table>	
+	
+	
+<script language="javascript">
+	
+	var table = document.getElementById("table");
+	fill(songs);
+	document.getElementById("genreSelect").onchange = function() {update()};
+	
+	function fill(array) {
+	table.innerHTML="";
+	for(var i = 0; i<array.length; i+0) {
+		var newRow = table.insertRow(table.length);
+		for(var j = 0; j < 3; j++){
+			var cell = newRow.insertCell(j);
+			var genres = "";
+			for(var k = 0; k<array[i].genre.length; k++){
+				genres += array[i].genre[k];
+				if(array[i].genre[k+1] != null){
+					genres += ",&nbsp"}
+			}
+			cell.innerHTML = "<h2>" + array[i].name + "</h2>" + 
+							"Artist: " + array[i].artist + 
+							"<br> Released: " + array[i].year + 
+							"<br> Genre: " + genres;
+		i++;
+		}	
+	}
+	}
+	
+	function update(){
+		var x = document.getElementById("genreSelect").value;
+		sorted = new Array();
+		var counter = 0;
+		if (x == "All"){
+			fill(songs);
+			return;
+		}
+		for(var i = 0; i<songs.length; i++){
+			for(var j = 0; j<songs[i].genre.length; j++){
+				if(songs[i].genre[j] == x){
+					sorted[counter] = songs[i];
+					counter++;
+				} else {
+					continue;
+				}
+			}
+		}
+		fill(sorted);
+	}
+	
+</script>
+</body>
+</html>
